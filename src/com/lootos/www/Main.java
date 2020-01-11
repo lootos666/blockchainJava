@@ -1,14 +1,18 @@
 package com.lootos.www;
 
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+
 public class Main {
+    public static ArrayList<Block> blockchain = new ArrayList<Block>();
+
     public static void main(String[] args) {
-        Block genesisBlock = new Block("The first block", "0");
-        System.out.println("Hash for block 1 : " + genesisBlock.hash);
+        blockchain.add(new Block("The first block", "0"));
+        blockchain.add(new Block("The second block", blockchain.get(blockchain.size() - 1).hash));
+        blockchain.add(new Block("The thrid block", blockchain.get(blockchain.size() - 1).hash));
 
-        Block secondBlock = new Block("The second block", genesisBlock.hash);
-        System.out.println("Has for block 2 : " + secondBlock.hash);
-
-        Block thridBlock = new Block("The thrid block", secondBlock.hash);
-        System.out.println("Hash for block 3 : " + thridBlock.hash);
+        String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
+        System.out.println(blockchainJson);
     }
 }

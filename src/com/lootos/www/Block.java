@@ -6,7 +6,7 @@ public class Block {
     public String hash; // цифровая подпись даного блока
     public String previousHash; // цифровая подпись предедущего блока
     private String data; // данные которые местит в себе блок
-    public long timeStamp;
+    private long timeStamp;
 
     public Block(String data, String previousHash) {
         this.data = data;
@@ -18,5 +18,13 @@ public class Block {
     public String calcHash() {
         String calcHash = StringHash.applySHA256(previousHash + Long.toString(timeStamp) + data);
         return calcHash;
+    }
+
+    public static Boolean isChainValid() {
+        Block currentBlock;
+        Block previousBlock;
+
+        //for (int i = 1; i < bloc)
+        return true;
     }
 }
