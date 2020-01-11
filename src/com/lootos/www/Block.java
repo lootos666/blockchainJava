@@ -7,6 +7,7 @@ public class Block {
     public String previousHash; // цифровая подпись предедущего блока
     private String data; // данные которые местит в себе блок
     private long timeStamp;
+    private int nonce;
 
     public Block(String data, String previousHash) {
         this.data = data;
@@ -16,15 +17,16 @@ public class Block {
     }
 
     public String calcHash() {
-        String calcHash = StringHash.applySHA256(previousHash + Long.toString(timeStamp) + data);
+        String calcHash = StringHash.applySHA256(previousHash + Long.toString(timeStamp) + data + Integer.toString(nonce));
         return calcHash;
     }
 
-    public static Boolean isChainValid() {
-        Block currentBlock;
-        Block previousBlock;
-
-        //for (int i = 1; i < bloc)
-        return true;
+    public void mineBlock(int difficult) {
+        String target = new String(new char[difficult]).replace('\0', '0');
+        while (!hash.substring(0, difficult).equals(target)) {
+            nonce++;
+            hash = calcHash();
+        }
+        System.out.println("Block mined : " + hash);
     }
 }
